@@ -12,8 +12,29 @@ struct RoomsView: View {
 
     var body: some View {
         VStack {
+
+            VStack(alignment: .leading) {
+                Text("Rooms")
+                    .font(.largeTitle)
+
+                // swiftlint:disable:next line_length
+                Text("Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum dolor ultricies donec risus sodales. Tempus quis et.")
+                    .font(.body)
+                    .foregroundColor(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             if rooms.isEmpty {
+                Spacer()
+
                 Text("There are no rooms to book")
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color(.secondarySystemFill))
+                    )
+
+                Spacer()
             } else {
                 ForEach(rooms, id: \.name) { room in
                     RoomView(room: room)
@@ -21,6 +42,7 @@ struct RoomsView: View {
                 Spacer()
             }
         }
+        .padding(.horizontal)
     }
 }
 

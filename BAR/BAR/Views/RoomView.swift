@@ -26,7 +26,6 @@ struct RoomView: View {
                 bookView
             }
         }
-        .padding(.horizontal)
         .padding(.vertical)
     }
 
