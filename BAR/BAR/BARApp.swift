@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct BARApp: App {
+    let rooms: [Room] = []
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RoomsView(rooms: rooms)
         }
     }
 }
