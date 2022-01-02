@@ -55,12 +55,13 @@ struct RoomThumbnailView: View {
             case .success(let image):
                 image
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
                     .cornerRadius(Style.imageCornerRadius)
             @unknown default:
                 EmptyView()
             }
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -68,10 +69,10 @@ struct RoomThumbnailView_Previews: PreviewProvider {
     static var previews: some View {
         // NOTE: To see these states you have to run the preview
         let scenarios: [(name: String, url: URL?)] = [
-            ("No url", nil),
+            ("No URL", nil),
             // swiftlint:disable:next line_length
-            ("Valid url", URL(string: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80")),
-            ("Invalid url", URL(string: "https://images.unsploosh"))
+            ("Valid URL", URL(string: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80")),
+            ("Invalid URL", URL(string: "https://images.unsploosh"))
         ]
         return Group {
             ForEach(scenarios, id: \.name) { scenario in

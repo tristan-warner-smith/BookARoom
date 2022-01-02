@@ -36,8 +36,10 @@ struct RoomsView: View {
 
                 Spacer()
             } else {
-                ForEach(rooms, id: \.name) { room in
-                    RoomView(room: room)
+                ScrollView(.vertical, showsIndicators: false) {
+                    ForEach(rooms, id: \.name) { room in
+                        RoomView(room: room)
+                    }
                 }
                 Spacer()
             }
@@ -51,14 +53,20 @@ struct RoomsView_Previews: PreviewProvider {
 
         let rooms = [
             Room(
-                name: "Ljerka",
+                name: "Many Spots",
                 spots: 43,
                 // swiftlint:disable:next line_length
                 thumbnail: URL(string: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80")
             ),
             Room(
-                name: "Mostafa",
-                spots: 4,
+                name: "Single Spot",
+                spots: 1,
+                // swiftlint:disable:next line_length
+                thumbnail: URL(string: "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
+            ),
+            Room(
+                name: "Empty",
+                spots: 0,
                 // swiftlint:disable:next line_length
                 thumbnail: URL(string: "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
             )
