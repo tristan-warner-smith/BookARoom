@@ -72,6 +72,7 @@ In reality, many smaller companies don't have the resources to implement and man
 
 ### Cut for time
 - Full image handling not using AsyncImage (doesn't support caching, reload etc, full state previews are impossible out of the box)
+    - Previously I've made this work using an image-cache backed observable that updates the image on completion, using generics it conformed to an `ImageLoadable` protocol that meant it was possible to have a `PreviewImageLoader` that used local assets instead. 
 - Swap from live urls to handling of Preview asset images using development assets
 - SwiftUI strings are localisable by default but the keys it generates are less than ideal, with more time I'd extract these to Localizable.strings
 - "5 spots remaining" should use correct pluralisation through Localizable.dict rules not through custom code
