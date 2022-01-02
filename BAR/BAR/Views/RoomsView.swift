@@ -18,6 +18,7 @@ struct RoomsView: View {
                 ForEach(rooms, id: \.name) { room in
                     RoomView(room: room)
                 }
+                Spacer()
             }
         }
     }

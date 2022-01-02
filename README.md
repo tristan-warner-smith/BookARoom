@@ -69,3 +69,9 @@ In reality, many smaller companies don't have the resources to implement and man
 - Booking screen design prototyping
 - State management
 - Networking
+
+### Cut for time
+- Full image handling not using AsyncImage (doesn't support caching, reload etc, full state previews are impossible out of the box)
+- Swap from live urls to handling of Preview asset images using development assets
+- SwiftUI strings are localisable by default but the keys it generates are less than ideal, with more time I'd extract these to Localizable.strings
+- "5 spots remaining" should use correct pluralisation through Localizable.dict rules not through custom code

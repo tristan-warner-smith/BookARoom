@@ -10,27 +10,59 @@ import SwiftUI
 struct RoomView: View {
     let room: Room
 
+    enum Style {
+        static let minimumHeight: Double = 44
+        static let cardTitle: Font = .title2.weight(.bold)
+    }
+
     var body: some View {
-        VStack {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(.secondary)
-                .scaledToFit()
+        VStack(spacing: 12) {
 
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(room.name)
-                    Text("\(room.spots)")
-                }
+            imageView
+
+            HStack(alignment: .top) {
+                labelsView
                 Spacer()
-                Button(action: {
-
-                }, label: {
-                    Text("Book!")
-                })
+                bookView
             }
         }
         .padding(.horizontal)
-        .background()
+        .padding(.vertical)
+    }
+
+    var imageView: some View {
+
+        RoomThumbnailView(url: room.thumbnail)
+    }
+
+    var labelsView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(room.name)
+                .font(Style.cardTitle)
+
+            Text(spotsDisplay())
+                .foregroundColor(.accentColor)
+        }
+    }
+
+    var bookView: some View {
+        Button(action: {
+
+        }, label: {
+            Text("Book!")
+                .font(.footnote.weight(.semibold))
+                .foregroundColor(.white)
+                .padding(.horizontal, 25)
+                .padding(.vertical, 6)
+                .background(
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        .fill(Color.accentColor)
+                )
+        }).buttonStyle(.plain)
+    }
+
+    func spotsDisplay() -> String {
+        "\(room.spots) \(room.spots == 1 ? "spot" : "spots") remaining"
     }
 }
 
@@ -47,8 +79,6 @@ struct RoomView_Previews: PreviewProvider {
         return Group {
             ForEach(Preview.devices) { device in
                 RoomView(room: room)
-                    .padding()
-                    .background(.black)
                     .previewDevice(device)
                     .previewLayout(.sizeThatFits)
             }
