@@ -14,6 +14,7 @@ struct RoomThumbnailView: View {
     enum Style {
         static let minimumHeight: Double = 44
         static let imageCornerRadius: Double = 11
+        static let imageAspectRatio: Double = 328.0 / 220.0
     }
 
     var body: some View {
@@ -55,12 +56,13 @@ struct RoomThumbnailView: View {
             case .success(let image):
                 image
                     .resizable()
-                    .scaledToFill()
+
                     .cornerRadius(Style.imageCornerRadius)
             @unknown default:
                 EmptyView()
             }
         }
+        .aspectRatio(Style.imageAspectRatio, contentMode: .fill)
         .frame(maxWidth: .infinity)
     }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct Preview {
     static let devices: [PreviewDevice] = [
-        "iPad 13 mini",
+        // NOTE: For extreme testing "iPhone SE (2nd generation)",
+        "iPhone 13 mini",
         "iPad Pro (11-inch) (3rd generation)"
     ].map { PreviewDevice(rawValue: $0) }
 }

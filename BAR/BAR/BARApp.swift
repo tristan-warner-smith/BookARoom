@@ -13,7 +13,7 @@ struct BARApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RoomsView(rooms: rooms)
+            RoomsView(rooms: rooms, book: { _ in })
         }
     }
 }
