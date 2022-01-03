@@ -1,5 +1,5 @@
 //
-//  Room.swift
+//  RoomState.swift
 //  BAR
 //
 //  Created by Tristan Warner-Smith on 02/01/2022.
@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct Room {
+struct RoomState {
     let name: String
-    let spots: Int
+    let numberOfAvailableSpots: Int
     let thumbnail: URL?
 }
+
+extension RoomState: Equatable {}
