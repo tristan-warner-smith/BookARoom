@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoomView: View {
-    let room: Room
+    let room: RoomState
     let book: (String) -> Void
 
     enum Style {
@@ -24,7 +24,7 @@ struct RoomView: View {
             HStack(alignment: .top) {
                 labelsView
                 Spacer()
-                bookView.opacity(room.spots > 0 ? 1 : 0)
+                bookView.opacity(room.numberOfAvailableSpots > 0 ? 1 : 0)
             }
             .layoutPriority(1)
         }
@@ -51,25 +51,25 @@ struct RoomView: View {
             action: { book(room.name) },
             label: {
                 Text("Book!")
-                    .font(.footnote.weight(.semibold))
+                    .font(.headline.weight(.semibold))
                     .foregroundColor(.white)
+                    .frame(minHeight: Style.minimumHeight)
                     .padding(.horizontal, 25)
-                    .padding(.vertical, 6)
                     .background(
-                        RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        RoundedRectangle(cornerRadius: 11, style: .continuous)
                             .fill(Color.accentColor)
                     )
             }).buttonStyle(.plain)
     }
 
     func spotsDisplay() -> String {
-        switch room.spots {
+        switch room.numberOfAvailableSpots {
         case 0:
             return "No spots remaining"
         case 1:
             return "1 spot remaining"
         default:
-            return "\(room.spots) spots remaining"
+            return "\(room.numberOfAvailableSpots) spots remaining"
         }
     }
 }
@@ -77,14 +77,14 @@ struct RoomView: View {
 struct RoomView_Previews: PreviewProvider {
     static var previews: some View {
 
-        let scenarios: [Room] = [
+        let scenarios: [RoomState] = [
             ("No spots", 0),
             ("1 spot", 1),
             ("Many spots", 42)
         ].map { name, spots in
-            Room(
+            RoomState(
                 name: name,
-                spots: spots,
+                numberOfAvailableSpots: spots,
                 // swiftlint:disable:next line_length
                 thumbnail: URL(string: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80")
             )
