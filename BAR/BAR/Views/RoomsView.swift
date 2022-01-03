@@ -8,26 +8,14 @@
 import SwiftUI
 
 struct RoomsView: View {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @ObservedObject var state: RoomsState
 
-    enum Style {
-        static let gridItemSpacing: Double = 20
-        static let numberOfCardsInGrid: Int = 3
-    }
+    @ObservedObject var state: RoomsState
+    @State private var isLoading: Bool = false
 
     var body: some View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    Text("Rooms")
-                        .font(.largeTitle)
-
-                    // swiftlint:disable:next line_length
-                    Text("Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum dolor ultricies donec risus sodales. Tempus quis et.")
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                }
+                header
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 if !state.rooms.isEmpty {
@@ -35,85 +23,74 @@ struct RoomsView: View {
                 }
             }
         }
-        .overlay(emptyView.opacity(state.rooms.isEmpty ? 1 : 0))
+        .overlay(emptyState)
+        .overlay(refresh, alignment: .topTrailing)
         .padding(.horizontal)
+        .onChange(of: state.loadState) { loadState in
+            withAnimation {
+                let loading = loadState == .loading
+                guard isLoading != loading else { return }
+
+                isLoading = loading
+            }
+        }
     }
 
-    var emptyView: some View {
+    var header: some View {
+        VStack(alignment: .leading) {
+            HStack {
+            Text("Rooms")
+                .font(.largeTitle)
+            }
+            // swiftlint:disable:next line_length
+            Text("Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum dolor ultricies donec risus sodales. Tempus quis et.")
+                .font(.body)
+                .foregroundColor(.secondary)
+        }
+    }
+
+    var emptyState: some View {
         Text("There are no rooms available to book")
             .italic()
             .padding()
+            .opacity(state.rooms.isEmpty ? 1 : 0)
     }
 
     @ViewBuilder
     var list: some View {
+        RoomsListView(rooms: state.rooms, book: { roomName in
+            Task {
+                await state.book(roomName: roomName)
+            }
+        })
+    }
 
-        if horizontalSizeClass == .regular {
-            let columns = (0..<Style.numberOfCardsInGrid)
-                .map { _ in
-                    GridItem(.flexible(), spacing: Style.gridItemSpacing)
-                }
-            LazyVGrid(columns: columns) {
-                ForEach(state.rooms, id: \.name) { room in
-                    RoomView(room: room, book: { roomName in
-                        Task {
-                            await state.book(roomName: roomName)
-                        }
-                    })
-                }
+    var refresh: some View {
+        Button(action: {
+            Task {
+                await state.load()
             }
-        } else {
-            VStack(spacing: 0) {
-                ForEach(state.rooms, id: \.name) { room in
-                    RoomView(room: room, book: { roomName in
-                        Task {
-                            await state.book(roomName: roomName)
-                        }
-                    })
-                }
-            }
-        }
+        }, label: {
+            Image(systemName: "arrow.clockwise")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+        })
+        .padding(8)
+        .background(RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(.thickMaterial)
+        )
+        .disabled(isLoading)
+        .opacity(isLoading ? 0 : 1)
+        .accessibilityLabel("Reload room availability")
     }
 }
 
 struct RoomsView_Previews: PreviewProvider {
     static var previews: some View {
 
-        let rooms = [
-            RoomState(
-                name: "Many Spots",
-                numberOfAvailableSpots: 43,
-                // swiftlint:disable:next line_length
-                thumbnail: URL(string: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80")
-            ),
-            RoomState(
-                name: "Single Spot",
-                numberOfAvailableSpots: 1,
-                // swiftlint:disable:next line_length
-                thumbnail: URL(string: "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
-            ),
-            RoomState(
-                name: "Empty",
-                numberOfAvailableSpots: 0,
-                // swiftlint:disable:next line_length
-                thumbnail: URL(string: "https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80")
-            ),
-            RoomState(
-                name: "Helmold",
-                numberOfAvailableSpots: 86,
-                // swiftlint:disable:next line_length
-                thumbnail: URL(string: "https://images.unsplash.com/photo-1539872209618-fb1770aa6ff8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1251&q=80")
-            ),
-            RoomState(
-                name: "Portrait Image",
-                numberOfAvailableSpots: 16,
-                // swiftlint:disable:next line_length
-                thumbnail: URL(string: "https://images.unsplash.com/photo-1540760029765-138c8f6d2eac?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80")
-            )
-        ]
-
         let roomScenarios: [(name: String, rooms: [RoomState] )] = [
-            ("Has rooms", rooms),
+            ("Has rooms", Preview.rooms),
             ("No rooms", [])
         ]
 

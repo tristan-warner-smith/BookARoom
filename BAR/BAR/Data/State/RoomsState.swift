@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum RoomsLoadingState: Equatable {
+enum RoomsLoadState: Equatable {
     case notLoaded
     case loading
     case loaded
@@ -15,9 +15,8 @@ enum RoomsLoadingState: Equatable {
 }
 
 @MainActor class RoomsState: ObservableObject {
-    @MainActor @Published private(set) var rooms: [RoomState]
-    @MainActor @Published private(set) var loadState: RoomsLoadingState
-    @MainActor @Published private(set) var lastChecked: Date?
+    @Published private(set) var rooms: [RoomState]
+    @Published private(set) var loadState: RoomsLoadState
 
     private let roomsProvider: RoomsDataProviding
     private let bookingCoordinator: RoomBookingCoordinating
@@ -37,7 +36,6 @@ enum RoomsLoadingState: Equatable {
 
             rooms = try await roomsProvider.rooms()
 
-            lastChecked = Date()
             loadState = .loaded
         } catch let error {
             loadState = .failed(error.localizedDescription)

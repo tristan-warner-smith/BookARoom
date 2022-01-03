@@ -30,6 +30,8 @@
 		9AECB0C627839128002AB38B /* RoomBookingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C527839128002AB38B /* RoomBookingCoordinator.swift */; };
 		9AECB0C827839256002AB38B /* BookRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C727839256002AB38B /* BookRoomResponse.swift */; };
 		9AECB0CA27839743002AB38B /* StubRoomBookingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C927839743002AB38B /* StubRoomBookingCoordinator.swift */; };
+		9AECB0CC2783A2CA002AB38B /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0CB2783A2CA002AB38B /* RoomsListView.swift */; };
+		9AECB0CE2783A380002AB38B /* Preview+RoomState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0CD2783A380002AB38B /* Preview+RoomState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		9AECB0C527839128002AB38B /* RoomBookingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBookingCoordinator.swift; sourceTree = "<group>"; };
 		9AECB0C727839256002AB38B /* BookRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRoomResponse.swift; sourceTree = "<group>"; };
 		9AECB0C927839743002AB38B /* StubRoomBookingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubRoomBookingCoordinator.swift; sourceTree = "<group>"; };
+		9AECB0CB2783A2CA002AB38B /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
+		9AECB0CD2783A380002AB38B /* Preview+RoomState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+RoomState.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC410FF2781C6A7007DDCE9 /* Preview+Devices.swift */,
+				9AECB0CD2783A380002AB38B /* Preview+RoomState.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -184,9 +189,10 @@
 		9AC411012781C964007DDCE9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9AC411022781C96D007DDCE9 /* RoomView.swift */,
+				9AECB0CB2783A2CA002AB38B /* RoomsListView.swift */,
 				9AC410D22781C30F007DDCE9 /* RoomsView.swift */,
 				9AC411042781EB90007DDCE9 /* RoomThumbnailView.swift */,
+				9AC411022781C96D007DDCE9 /* RoomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -422,10 +428,12 @@
 				9AC410D12781C30F007DDCE9 /* BARApp.swift in Sources */,
 				9AC411052781EB90007DDCE9 /* RoomThumbnailView.swift in Sources */,
 				9AECB0B327826595002AB38B /* DataProvider.swift in Sources */,
+				9AECB0CE2783A380002AB38B /* Preview+RoomState.swift in Sources */,
 				9AECB0B12782656D002AB38B /* RoomsDataProvider.swift in Sources */,
 				9AECB0AD27825E3D002AB38B /* RoomState.swift in Sources */,
 				9AECB0AB27825E0A002AB38B /* RoomsResponse.swift in Sources */,
 				9AC410FD2781C62C007DDCE9 /* RoomResponse.swift in Sources */,
+				9AECB0CC2783A2CA002AB38B /* RoomsListView.swift in Sources */,
 				9AECB0A9278257CE002AB38B /* RoomsState.swift in Sources */,
 				9AECB0C627839128002AB38B /* RoomBookingCoordinator.swift in Sources */,
 			);
