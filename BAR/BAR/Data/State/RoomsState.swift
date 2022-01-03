@@ -19,10 +19,13 @@ enum RoomsLoadingState: Equatable {
     @MainActor @Published private(set) var loadState: RoomsLoadingState
     @MainActor @Published private(set) var lastChecked: Date?
 
-    private var roomsProvider: RoomsDataProviding
+    private let roomsProvider: RoomsDataProviding
+    private let bookingCoordinator: RoomBookingCoordinating
 
-    init(roomsProvider: RoomsDataProviding = RoomsDataProvider(dataProvider: URLSession.shared)) {
+    init(roomsProvider: RoomsDataProviding = RoomsDataProvider(dataProvider: URLSession.shared),
+         bookingCoordinator: RoomBookingCoordinating = RoomBookingCoordinator(dataProvider: URLSession.shared)) {
         self.roomsProvider = roomsProvider
+        self.bookingCoordinator = bookingCoordinator
         self.rooms = []
         self.loadState = .notLoaded
     }
@@ -42,6 +45,16 @@ enum RoomsLoadingState: Equatable {
     }
 
     func book(roomName: String) async {
-        assertionFailure("Not yet implemented")
+
+        do {
+            try await bookingCoordinator.book(roomName: roomName)
+
+            // NOTE: If we've just booked, let's trigger a background data refresh to show the updated values
+            Task {
+                await load()
+            }
+        } catch let error {
+            assertionFailure("Failed to book room \(roomName) due to \(error)")
+        }
     }
 }

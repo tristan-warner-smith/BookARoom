@@ -70,10 +70,13 @@ In reality, many smaller companies don't have the resources to implement and man
 - State management
 - Networking
 
-### Changes from design
+### Notes on design
 - Button size increased for touch target, font as well
 - Loading / empty states added
 - Fonts and spacing approximated for time
+- Accessibility-wise everything works well enough, I considered reordering the room name, book button and spaces count but left it as is.
+- Dynamic type works but could be improved as described below.
+- I considered disabling book functionality once you'd tapped it locally but then realised that it's an assumption that this isn't going to be used as a many-user kiosk rather than a single user app. 
 
 ### Cut for time
 - Full image handling not using AsyncImage (doesn't support caching, reload etc, full state previews are impossible out of the box)
@@ -89,4 +92,10 @@ In reality, many smaller companies don't have the resources to implement and man
 - XCConfig - Normally I'd break out configs for the main differentiators, in this case separating UI Tests is the only real case I'd have for it.
 - Test host - I tend to use a custom `@main` `AppLauncher` that reads commandline arguments and checks for `NSClassFromString("XCTestCase")` choosing to start the main app or a custom `UnitTestApp` with a UI that makes it clear that it's a separate test-only app. (I like to put a loading indicator on there too to see if there are any main thread UI hitches)     
 - Codable type mapper / parser, I've just gone super basic with the RoomsDataProvider doing the conversion, as the requirements grow this is a good point to split things apart.
+- /book I felt like you'd need an identifier for which room you're trying to book, roomName isn't a reliable unique id but I passed it through and `debugPrint`ed to scratch an itch.
+- For booking I went with a fire and forget model rather than modelling progress and error state throughout.
+- I didn't write tests for the booking coordinator for time and lack of an obvious case for error management (the response is only success / fail) 
+- For rooms data I just captured the localised error for display rather than mapping them to user-friendly messages.  
+- I didn't write UI tests for time, but I tend to create a caseless enum to map screen elements to string Automation Identifiers that can be used for UI tests
+
 

@@ -8,7 +8,8 @@
 @testable import BAR
 
 enum Some {
-    static let roomState = RoomState(name: "Room", numberOfAvailableSpots: 1, thumbnail: nil)
+    static let roomName = "The Emerald Room"
+    static let roomState = RoomState(name: Some.roomName, numberOfAvailableSpots: 1, thumbnail: nil)
     static let error: Error = StubError.some
 }
 

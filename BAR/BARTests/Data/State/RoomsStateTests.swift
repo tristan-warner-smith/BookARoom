@@ -87,7 +87,16 @@ final class RoomsStateTests: XCTestCase {
 
     // MARK: - Book
 
-    func test_book() async {
-        XCTFail("Not implemented yet")
+    func test_book_succeeds() async {
+
+        let bookingCoordinator = StubRoomBookingCoordinator()
+        let state = await RoomsState(
+            roomsProvider: StubRoomsDataProvider(),
+            bookingCoordinator: bookingCoordinator
+        )
+
+        await state.book(roomName: Some.roomName)
+
+        XCTAssertEqual(bookingCoordinator.bookCalls, 1)
     }
 }

@@ -27,6 +27,9 @@
 		9AECB0BF278341CA002AB38B /* StubDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0BE278341CA002AB38B /* StubDataProvider.swift */; };
 		9AECB0C2278343F9002AB38B /* RoomsStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C1278343F9002AB38B /* RoomsStateTests.swift */; };
 		9AECB0C427834F67002AB38B /* StubRoomsDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C327834F67002AB38B /* StubRoomsDataProvider.swift */; };
+		9AECB0C627839128002AB38B /* RoomBookingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C527839128002AB38B /* RoomBookingCoordinator.swift */; };
+		9AECB0C827839256002AB38B /* BookRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C727839256002AB38B /* BookRoomResponse.swift */; };
+		9AECB0CA27839743002AB38B /* StubRoomBookingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AECB0C927839743002AB38B /* StubRoomBookingCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		9AECB0BE278341CA002AB38B /* StubDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubDataProvider.swift; sourceTree = "<group>"; };
 		9AECB0C1278343F9002AB38B /* RoomsStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsStateTests.swift; sourceTree = "<group>"; };
 		9AECB0C327834F67002AB38B /* StubRoomsDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubRoomsDataProvider.swift; sourceTree = "<group>"; };
+		9AECB0C527839128002AB38B /* RoomBookingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBookingCoordinator.swift; sourceTree = "<group>"; };
+		9AECB0C727839256002AB38B /* BookRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRoomResponse.swift; sourceTree = "<group>"; };
+		9AECB0C927839743002AB38B /* StubRoomBookingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubRoomBookingCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				9AECB0B227826595002AB38B /* DataProvider.swift */,
+				9AECB0C527839128002AB38B /* RoomBookingCoordinator.swift */,
 				9AECB0B02782656D002AB38B /* RoomsDataProvider.swift */,
 			);
 			path = Providers;
@@ -208,6 +215,7 @@
 			children = (
 				9AC410FC2781C62C007DDCE9 /* RoomResponse.swift */,
 				9AECB0AA27825E0A002AB38B /* RoomsResponse.swift */,
+				9AECB0C727839256002AB38B /* BookRoomResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -242,6 +250,7 @@
 			children = (
 				9AECB0BE278341CA002AB38B /* StubDataProvider.swift */,
 				9AECB0C327834F67002AB38B /* StubRoomsDataProvider.swift */,
+				9AECB0C927839743002AB38B /* StubRoomBookingCoordinator.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -407,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AC411032781C96D007DDCE9 /* RoomView.swift in Sources */,
+				9AECB0C827839256002AB38B /* BookRoomResponse.swift in Sources */,
 				9AC411002781C6A7007DDCE9 /* Preview+Devices.swift in Sources */,
 				9AC410D32781C30F007DDCE9 /* RoomsView.swift in Sources */,
 				9AC410D12781C30F007DDCE9 /* BARApp.swift in Sources */,
@@ -417,6 +427,7 @@
 				9AECB0AB27825E0A002AB38B /* RoomsResponse.swift in Sources */,
 				9AC410FD2781C62C007DDCE9 /* RoomResponse.swift in Sources */,
 				9AECB0A9278257CE002AB38B /* RoomsState.swift in Sources */,
+				9AECB0C627839128002AB38B /* RoomBookingCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +437,7 @@
 			files = (
 				9AECB0C2278343F9002AB38B /* RoomsStateTests.swift in Sources */,
 				9AECB0C427834F67002AB38B /* StubRoomsDataProvider.swift in Sources */,
+				9AECB0CA27839743002AB38B /* StubRoomBookingCoordinator.swift in Sources */,
 				9AECB0BF278341CA002AB38B /* StubDataProvider.swift in Sources */,
 				9AECB0BC2783416F002AB38B /* Some.swift in Sources */,
 				9AECB0B9278267A6002AB38B /* RoomsDataProviderTests.swift in Sources */,
