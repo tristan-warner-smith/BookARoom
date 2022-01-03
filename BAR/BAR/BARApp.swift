@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct BARApp: App {
+    @StateObject var roomsState: RoomsState = .init()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RoomsView(state: roomsState)
+                .task {
+                    await roomsState.load()
+                }
         }
     }
 }

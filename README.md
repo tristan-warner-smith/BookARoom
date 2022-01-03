@@ -69,3 +69,33 @@ In reality, many smaller companies don't have the resources to implement and man
 - Booking screen design prototyping
 - State management
 - Networking
+
+### Notes on design
+- Button size increased for touch target, font as well
+- Loading / empty states added
+- Fonts and spacing approximated for time
+- Accessibility-wise everything works well enough, I considered reordering the room name, book button and spaces count but left it as is.
+- Dynamic type works but could be improved as described below.
+- I considered disabling book functionality once you'd tapped it locally but then realised that it's an assumption that this isn't going to be used as a many-user kiosk rather than a single user app. 
+
+### Cut for time
+- Full image handling not using AsyncImage (doesn't support caching, reload etc, full state previews are impossible out of the box)
+    - Previously I've made this work using an image-cache backed observable that updates the image on completion, using generics it conformed to an `ImageLoadable` protocol that meant it was possible to have a `PreviewImageLoader` that used local assets instead.
+    - You can see this approach in my Spandex github project 
+- Swap from live urls to handling of Preview asset images using development assets
+- SwiftUI strings are localisable by default but the keys it generates are less than ideal, with more time I'd extract these to Localizable.strings
+- "5 spots remaining" should use correct pluralisation through Localizable.dict rules not through custom code
+- There's a gotcha with SwiftUI images in that they don't have the same aspect ratio clipping options as UIKit. In this case that means that some images that are portrait rather than landscape will fill vertically. Without knowing the sizes of the images up front to set an image-based maxHeight we're left in a dilemma of picking a 'reasonable' but flawed max height to ensure all cards look pretty much the same or instead to take manual control of image storage and understanding in order to know what dimensions to limit the UI to. An alternative at runtime could be to use the preference system to allow images to lay themselves out, collecting the sizes and then calculating a consistent max height, using GeometryReader in a background modifier. 
+    - The patch I've applied _for time_ is to use the aspect ratio from the Figma design (328/220) to enforce the ratio it fills with. This means that the images are incorrectly stretched for portrait images. This would need rectifying as above.
+- I haven't gone for a LazyVStack due to AsyncImage's lack of caching it shows a loading state excessively. This is another reason I tend to avoid AsyncImage in production, it negatively impacts both UI and UX.
+- Dynamic type affordances - The design should change as the font gets above a usable size
+- XCConfig - Normally I'd break out configs for the main differentiators, in this case separating UI Tests is the only real case I'd have for it.
+- Test host - I tend to use a custom `@main` `AppLauncher` that reads commandline arguments and checks for `NSClassFromString("XCTestCase")` choosing to start the main app or a custom `UnitTestApp` with a UI that makes it clear that it's a separate test-only app. (I like to put a loading indicator on there too to see if there are any main thread UI hitches)     
+- Codable type mapper / parser, I've just gone super basic with the RoomsDataProvider doing the conversion, as the requirements grow this is a good point to split things apart.
+- /book I felt like you'd need an identifier for which room you're trying to book, roomName isn't a reliable unique id but I passed it through and `debugPrint`ed to scratch an itch.
+- For booking I went with a fire and forget model rather than modelling progress and error state throughout.
+- I didn't write tests for the booking coordinator for time and lack of an obvious case for error management (the response is only success / fail) 
+- For rooms data I just captured the localised error for display rather than mapping them to user-friendly messages.  
+- I didn't write UI tests for time, but I tend to create a caseless enum to map screen elements to string Automation Identifiers that can be used for UI tests
+
+
