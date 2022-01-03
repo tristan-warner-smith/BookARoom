@@ -18,11 +18,9 @@ final class RoomsStateTests: XCTestCase {
         let state = await RoomsState(roomsProvider: roomsProvider)
         let rooms = await state.rooms
         let loadState = await state.loadState
-        let lastChecked = await state.lastChecked
 
         XCTAssertEqual(rooms, [])
         XCTAssertEqual(loadState, .notLoaded)
-        XCTAssertNil(lastChecked)
     }
 
     // MARK: - Load
@@ -34,7 +32,7 @@ final class RoomsStateTests: XCTestCase {
         let statesChange = expectation(description: "States should change")
 
         let state = RoomsState(roomsProvider: roomsProvider)
-        var statesSeen = [RoomsLoadingState]()
+        var statesSeen = [RoomsLoadState]()
         var cancellables = Set<AnyCancellable>()
         state
             .$loadState
@@ -57,9 +55,6 @@ final class RoomsStateTests: XCTestCase {
         XCTAssertEqual(first, .notLoaded)
         XCTAssertEqual(second, .loading)
         XCTAssertEqual(third, .loaded)
-
-        let lastChecked = state.lastChecked
-        XCTAssertNotNil(lastChecked)
 
         let rooms = state.rooms
         XCTAssert(!rooms.isEmpty)
