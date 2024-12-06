@@ -55,11 +55,13 @@ struct RoomsListView_Previews: PreviewProvider {
         return Group {
             ForEach(Preview.devices) { device in
                 ForEach(roomScenarios, id: \.name) { scenario in
-                    RoomsListView(rooms: scenario.rooms, book: { _ in })
-                        .padding()
-                        .previewLayout(.sizeThatFits)
-                        .previewDevice(device)
-                        .previewDisplayName("\(scenario.name) - \(device.rawValue)")
+                    ScrollView(.vertical) {
+                        RoomsListView(rooms: scenario.rooms, book: { _ in })
+                            .padding()
+                    }
+                    .previewLayout(.sizeThatFits)
+                    .previewDevice(device)
+                    .previewDisplayName("\(scenario.name) - \(device.rawValue)")
                 }
             }
         }

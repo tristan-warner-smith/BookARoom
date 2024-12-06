@@ -31,6 +31,7 @@ actor RoomBookingCoordinator: RoomBookingCoordinating {
         debugPrint("Book room '\(roomName)' requested")
 
         let data = try await dataProvider.data(from: bookingURL)
+        // NOTE: The endpoint is hardcoded to always report success so handling it here is of minimal value
         _ = try decoder.decode(BookRoomResponse.self, from: data)
     }
 }

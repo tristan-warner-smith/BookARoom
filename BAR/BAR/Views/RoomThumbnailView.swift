@@ -56,7 +56,6 @@ struct RoomThumbnailView: View {
             case .success(let image):
                 image
                     .resizable()
-
                     .cornerRadius(Style.imageCornerRadius)
             @unknown default:
                 EmptyView()
